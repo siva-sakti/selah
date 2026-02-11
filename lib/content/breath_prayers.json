@@ -1,0 +1,39 @@
+{
+  "prayers": [
+    {
+      "id": 1,
+      "text": "Be still.",
+      "text_es": "Quédate quieto."
+    },
+    {
+      "id": 2,
+      "text": "Lord, have mercy.",
+      "text_es": "Señor, ten piedad."
+    },
+    {
+      "id": 3,
+      "text": "Selah.",
+      "text_es": "Selah."
+    },
+    {
+      "id": 4,
+      "text": "Come, Lord Jesus.",
+      "text_es": "Ven, Señor Jesús."
+    },
+    {
+      "id": 5,
+      "text": "Jesus, I trust in You.",
+      "text_es": "Jesús, confío en Ti."
+    },
+    {
+      "id": 6,
+      "text": "Lord, I believe.",
+      "text_es": "Señor, creo."
+    },
+    {
+      "id": 7,
+      "text": "Into Your hands.",
+      "text_es": "En Tus manos."
+    }
+  ]
+}

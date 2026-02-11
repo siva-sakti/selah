@@ -1,0 +1,54 @@
+name: selah
+description: "Selah — Sacred Screen Guard. Turn every temptation into a prayer."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Core functionality
+  flutter_accessibility_service: ^1.0.0
+  sqflite: any
+  shared_preferences: any
+  path_provider: any
+  path: any
+
+  # State management
+  provider: any
+
+  # Notifications
+  flutter_local_notifications: any
+
+  # Installed apps detection
+  installed_apps: any
+
+  # Localization
+  intl: any
+
+  # Typography
+  google_fonts: any
+
+  # Charts for weekly review
+  fl_chart: any
+
+  # In-app purchases
+  in_app_purchase: any
+
+  # Icons
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - lib/content/
+    - lib/l10n/

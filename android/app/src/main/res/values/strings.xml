@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Selah</string>
+    <string name="accessibility_service_description">Selah uses accessibility to detect when you open guarded apps and show you a moment of Scripture and prayer. Selah never reads your screen content, never collects your data, and never sends anything off your device.</string>
+</resources>

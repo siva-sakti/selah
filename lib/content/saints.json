@@ -1,0 +1,59 @@
+{
+  "catholic": [
+    {
+      "name": "St. Anthony of the Desert",
+      "theme": "resisting temptation",
+      "quote": "Expect temptation to your last breath."
+    },
+    {
+      "name": "St. Thérèse of Lisieux",
+      "theme": "small sacrifices",
+      "quote": "Miss no single opportunity of making some small sacrifice."
+    },
+    {
+      "name": "St. Augustine",
+      "theme": "battling old habits",
+      "quote": "Lord, give me chastity and continence, but not yet."
+    }
+  ],
+  "protestant": [
+    {
+      "name": "Elijah",
+      "theme": "hearing God in silence",
+      "reference": "1 Kings 19",
+      "quote": "And after the fire came a gentle whisper."
+    },
+    {
+      "name": "David",
+      "theme": "patience and trust",
+      "reference": "Psalms",
+      "quote": "Wait for the Lord; be strong and take heart and wait for the Lord."
+    }
+  ],
+  "orthodox": [
+    {
+      "name": "St. Anthony the Great",
+      "theme": "Desert Father tradition",
+      "quote": "I no longer fear God, but I love Him."
+    },
+    {
+      "name": "St. Mary of Egypt",
+      "theme": "radical transformation",
+      "quote": "Prayer is the cure for a multitude of sins."
+    }
+  ],
+  "exploring": [
+    {
+      "name": "Jesus in the wilderness",
+      "theme": "40 days of testing",
+      "reference": "Matthew 4",
+      "quote": "Man shall not live on bread alone."
+    },
+    {
+      "name": "Moses in the desert",
+      "theme": "40 years of faithfulness",
+      "reference": "Exodus",
+      "quote": "The Lord is my strength and my song."
+    }
+  ]
+}

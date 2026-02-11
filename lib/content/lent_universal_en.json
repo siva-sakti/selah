@@ -1,0 +1,77 @@
+{
+  "season": "lent",
+  "tradition": "universal",
+  "language": "en",
+  "days": [
+    {
+      "day": 1,
+      "liturgical_label": "Ash Wednesday",
+      "scripture_ref": "Joel 2:12-13",
+      "scripture_text": "Return to me with all your heart, with fasting and weeping and mourning. Rend your heart and not your garments.",
+      "breath_prayer": "Be still.",
+      "reflection": "What needs to be torn open in your heart today?",
+      "companion_name": "Jesus in the wilderness",
+      "companion_quote": "Man shall not live on bread alone, but on every word that comes from the mouth of God."
+    },
+    {
+      "day": 2,
+      "liturgical_label": "Thursday after Ash Wednesday",
+      "scripture_ref": "Psalm 51:10",
+      "scripture_text": "Create in me a clean heart, O God, and renew a right spirit within me.",
+      "breath_prayer": "Lord, have mercy.",
+      "reflection": "Where do you need renewal?",
+      "companion_name": "Moses in the desert",
+      "companion_quote": "The Lord is my strength and my song; he has become my salvation."
+    },
+    {
+      "day": 3,
+      "liturgical_label": "Friday after Ash Wednesday",
+      "scripture_ref": "Isaiah 58:6",
+      "scripture_text": "Is not this the fast that I choose: to loose the bonds of wickedness, to undo the straps of the yoke?",
+      "breath_prayer": "Selah.",
+      "reflection": "What bonds need loosening in your life?",
+      "companion_name": "The Prodigal Son",
+      "companion_quote": "I will arise and go to my father, and I will say to him, 'Father, I have sinned.'"
+    },
+    {
+      "day": 4,
+      "liturgical_label": "Saturday after Ash Wednesday",
+      "scripture_ref": "Matthew 6:16-18",
+      "scripture_text": "When you fast, anoint your head and wash your face, that your fasting may not be seen by others but by your Father who is in secret.",
+      "breath_prayer": "Come, Lord Jesus.",
+      "reflection": "What hidden sacrifices can you offer today?",
+      "companion_name": "The woman at the well",
+      "companion_quote": "Sir, give me this water, so that I will not be thirsty."
+    },
+    {
+      "day": 5,
+      "liturgical_label": "First Sunday of Lent",
+      "scripture_ref": "Matthew 4:1-4",
+      "scripture_text": "Then Jesus was led up by the Spirit into the wilderness to be tempted by the devil. And after fasting forty days and forty nights, he was hungry.",
+      "breath_prayer": "Jesus, I trust in You.",
+      "reflection": "How is the Spirit leading you into the wilderness this Lent?",
+      "companion_name": "Abraham",
+      "companion_quote": "The Lord will provide."
+    },
+    {
+      "day": 6,
+      "liturgical_label": "Monday of the First Week of Lent",
+      "scripture_ref": "Leviticus 19:1-2",
+      "scripture_text": "You shall be holy, for I the Lord your God am holy.",
+      "breath_prayer": "Lord, I believe.",
+      "reflection": "What does holiness look like in your daily choices?",
+      "companion_name": "The Good Samaritan",
+      "companion_quote": "Go, and do likewise."
+    },
+    {
+      "day": 7,
+      "liturgical_label": "Tuesday of the First Week of Lent",
+      "scripture_ref": "Isaiah 55:10-11",
+      "scripture_text": "So shall my word be that goes out from my mouth; it shall not return to me empty, but it shall accomplish that which I purpose.",
+      "breath_prayer": "Into Your hands.",
+      "reflection": "How is God's word working in you right now?",
+      "companion_name": "Mary Magdalene",
+      "companion_quote": "I have seen the Lord."
+    }
+  ]
+}

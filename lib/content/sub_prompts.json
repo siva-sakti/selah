@@ -1,0 +1,61 @@
+{
+  "prompts": [
+    {
+      "attempt": 2,
+      "text": "What are you looking for right now?",
+      "text_es": "¿Qué estás buscando ahora mismo?"
+    },
+    {
+      "attempt": 3,
+      "text": "You've come back three times today. What is your heart telling you?",
+      "text_es": "Has vuelto tres veces hoy. ¿Qué te está diciendo tu corazón?"
+    },
+    {
+      "attempt": 4,
+      "text": "He sees you here. He loves you here. Do you want to stay?",
+      "text_es": "Él te ve aquí. Él te ama aquí. ¿Quieres quedarte?"
+    },
+    {
+      "attempt": 5,
+      "text": "You've been here five times. That's okay. But what would it feel like to stop?",
+      "text_es": "Has estado aquí cinco veces. Está bien. Pero, ¿cómo se sentiría parar?"
+    }
+  ],
+  "examination_reasons": [
+    {
+      "id": "boredom",
+      "text": "Boredom",
+      "text_es": "Aburrimiento"
+    },
+    {
+      "id": "anxiety",
+      "text": "Anxiety",
+      "text_es": "Ansiedad"
+    },
+    {
+      "id": "loneliness",
+      "text": "Loneliness",
+      "text_es": "Soledad"
+    },
+    {
+      "id": "habit",
+      "text": "Habit",
+      "text_es": "Hábito"
+    },
+    {
+      "id": "escape",
+      "text": "Escape",
+      "text_es": "Escapar"
+    },
+    {
+      "id": "envy",
+      "text": "Envy (comparing myself to others)",
+      "text_es": "Envidia (comparándome con otros)"
+    },
+    {
+      "id": "needed",
+      "text": "I need this app for something specific",
+      "text_es": "Necesito esta app para algo específico"
+    }
+  ]
+}

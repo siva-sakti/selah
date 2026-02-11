@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Selah Brand Colors -->
+    <color name="deep_navy">#FF1B2340</color>
+    <color name="sacred_gold">#FFC9A84C</color>
+    <color name="warm_cream">#FFF5F0E6</color>
+    <color name="subdued_gray">#FF666666</color>
+    <color name="soft_blue">#FF6B7AA1</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Semantic colors -->
+    <color name="primary">@color/sacred_gold</color>
+    <color name="background">@color/deep_navy</color>
+    <color name="surface">@color/deep_navy</color>
+    <color name="on_primary">@color/deep_navy</color>
+    <color name="on_background">@color/warm_cream</color>
+    <color name="on_surface">@color/warm_cream</color>
+</resources>

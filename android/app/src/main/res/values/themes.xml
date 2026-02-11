@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Selah" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/sacred_gold</item>
+        <item name="colorOnPrimary">@color/deep_navy</item>
+        <item name="colorSecondary">@color/sacred_gold</item>
+        <item name="colorOnSecondary">@color/deep_navy</item>
+        <item name="android:colorBackground">@color/deep_navy</item>
+        <item name="colorSurface">@color/deep_navy</item>
+        <item name="colorOnSurface">@color/warm_cream</item>
+        <item name="android:statusBarColor">@color/transparent</item>
+        <item name="android:navigationBarColor">@color/deep_navy</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+</resources>

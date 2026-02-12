@@ -16,9 +16,9 @@ Phase 2: Core Feature - AccessibilityService + Overlay
     ↓
 Phase 3: Intervention Behavior (depends on Phase 2)
     ↓
-Phase 4: Onboarding (depends on Phase 2)
+Phase 4: Onboarding (depends on Phase 3 - needs snooze/schedule working)
     ↓
-Phase 5: Main App Screens (depends on Phase 1, 3)
+Phase 5: Main App Screens (depends on Phase 3, 4)
     ↓
 Phase 6: Settings & Controls (depends on Phase 5)
     ↓
@@ -28,6 +28,8 @@ Phase 8: Content & Polish (depends on all above)
     ↓
 Phase 9: Monetization & Submission
 ```
+
+**Important:** Phase 3 (Intervention Behavior) must be complete before Phase 4 (Onboarding) because onboarding sets schedule/snooze preferences that the overlay must respect immediately after setup.
 
 ---
 
@@ -105,18 +107,27 @@ Phase 9: Monetization & Submission
 - `guardedAppsCache: Set<String>` in service
 - Load from Room on service start (coroutine in onServiceConnected)
 - Method to refresh cache when apps added/removed
-- Broadcast receiver or callback to trigger refresh
+- **Cache refresh mechanism:** When main app writes to guarded_apps table, also write `cache_dirty = true` to SharedPreferences. Service checks this flag before each intervention and reloads if dirty. Simpler and more reliable than broadcast receivers.
 
 **Deliverable:** Fast package name lookup without database queries
 
-### 2.3 Overlay Permission Flow
+### 2.3 BOOT_COMPLETED Receiver
+- `receiver/BootCompletedReceiver.kt`
+- Register in AndroidManifest with `RECEIVE_BOOT_COMPLETED` permission
+- On boot, check if AccessibilityService should be running
+- If service was enabled, it auto-restarts (Android manages this), but receiver ensures app state is correct
+- Also handles `MY_PACKAGE_REPLACED` for app updates
+
+**Deliverable:** Service restarts correctly after phone reboot and app updates
+
+### 2.4 Overlay Permission Flow
 - Check `Settings.canDrawOverlays()`
 - If not granted, navigate to overlay settings
 - Return handling to continue after permission granted
 
 **Deliverable:** App requests and receives overlay permission
 
-### 2.4 Overlay Manager
+### 2.5 Overlay Manager
 - `service/SelahOverlayManager.kt`
 - Creates overlay View using WindowManager
 - `TYPE_APPLICATION_OVERLAY` with correct flags
@@ -126,7 +137,7 @@ Phase 9: Monetization & Submission
 
 **Deliverable:** Overlay appears over guarded app
 
-### 2.5 Intervention Overlay Layout (XML)
+### 2.6 Intervention Overlay Layout (XML)
 - `res/layout/overlay_intervention.xml`
 - Gold cross at top
 - Scripture text area (Cormorant Garamond)
@@ -138,7 +149,7 @@ Phase 9: Monetization & Submission
 
 **Deliverable:** Beautiful overlay layout matching design spec
 
-### 2.6 Overlay View Binding & Basic Logic
+### 2.7 Overlay View Binding & Basic Logic
 - `ui/overlay/InterventionOverlayView.kt`
 - Inflate layout, bind views
 - Accept data: scripture, app name, attempt number, pause duration
@@ -155,17 +166,26 @@ Phase 9: Monetization & Submission
 **Goal:** Full intervention flow with escalation, offering, and examination.
 
 ### 3.1 Escalation Logic
-- Calculate attempt number for this app today (Room query)
+
+**Important flow clarification:**
+1. Event arrives → check in-memory cache (instant, no I/O)
+2. If NOT guarded → return immediately (99% of events)
+3. If guarded → THEN query attempt count via coroutine (Dispatchers.IO)
+4. This is acceptable because we only hit the database when we're already committed to showing an overlay
+
+- Query interventions table for count of this app today
 - Determine pause duration: 5s → 10s → 20s → 30s → 30s...
 - Determine what content to show per attempt level
-- Same Scripture all day (query by date)
+- Same Scripture all day (query by date, can cache daily)
 
 **Deliverable:** Escalation works correctly across attempts
 
 ### 3.2 Snooze Check
 - Before showing overlay, check `snooze_until` in SharedPreferences
-- If snoozed, skip overlay entirely
+- If current time < snooze_until, skip overlay entirely
 - Let app open normally
+
+**Note:** Snooze lives in SharedPreferences (not Room) because it's checked on every guarded app event and must be fast. The home screen's "Paused until 2:30 PM" banner also reads from SharedPreferences for consistency.
 
 **Deliverable:** Snooze mode prevents interventions
 
@@ -282,14 +302,29 @@ Phase 9: Monetization & Submission
 - Stats bar: "Guarded X times · Chose prayer Y times · Reclaimed Z min"
 - Pull data from ContentRepository and InterventionRepository
 
+**Important: Home screen must refresh on every resume.** User might arrive here after:
+- Normal app open (tap icon)
+- Returning from "Offered up" (overlay sent them home)
+- Coming back from settings
+- Any other navigation
+
+Query database in `onResume()` or use Flow/LiveData to ensure stats are always current.
+
 ### 5.2 Lenten Day Calculation
-- Calculate days since Ash Wednesday 2026 (Feb 18)
-- Handle Sundays (traditionally not counted in 40 days, but we include them)
-- Return day number 1-46 or null if not Lent season
+
+**Decision: Lent = 46 calendar days** (Ash Wednesday through Holy Saturday)
+- Include Sundays in the count (simpler date math, better UX)
+- This means 46 days of content, not 40
+- "40 days of Lent" is marketing language; internally it's 46 entries
+- Day 1 = Ash Wednesday (Feb 18, 2026)
+- Day 46 = Holy Saturday (April 4, 2026)
+
+- Calculate: `(today - ashWednesday).days + 1`
+- Return day number 1-46, or null if outside Lent season
 
 ### 5.3 Journey Tab - Lent Mode
 - Desert path visualization (can be simple for v1)
-- 40 waypoints representing days
+- 46 waypoints representing calendar days (Ash Wed → Holy Saturday)
 - Completed days glow gold
 - Today pulses
 - Future days dimmed
@@ -351,9 +386,9 @@ Phase 9: Monetization & Submission
 
 ### 6.5 Snooze Mode
 - "Pause Selah for 30 minutes" button
-- Set `snooze_until` = now + 30 minutes in SharedPreferences
-- Show banner on home screen when snoozed
-- Service checks this before showing overlay
+- Set `snooze_until` = now + 30 minutes in SharedPreferences (NOT Room - needs fast reads)
+- Home screen reads from same SharedPreferences to show "Paused until 2:30 PM" banner
+- Service checks SharedPreferences before showing overlay (see 3.2)
 
 ### 6.6 Premium Gating
 - Check `is_premium` flag before allowing:
@@ -432,14 +467,17 @@ Phase 9: Monetization & Submission
 - Breath prayers rotate through set of 5-6
 - Reflections are gentle, inviting
 
-### 8.3 Lent Content - Universal (40 days)
+### 8.3 Lent Content - Universal (46 days)
 - Create `res/raw/content_lent_universal_en.json`
+- **46 entries** (Ash Wednesday through Holy Saturday, including Sundays)
 - Follows Lenten themes: repentance, fasting, prayer, almsgiving
 - Desert imagery in reflections
 - Biblical companions (Moses, Elijah, Jesus in wilderness)
+- Sundays can have slightly different tone (resurrection hope)
 
-### 8.4 Lent Content - Catholic (40 days)
+### 8.4 Lent Content - Catholic (46 days)
 - Create `res/raw/content_lent_catholic_en.json`
+- **46 entries** matching universal structure
 - Same Scripture as universal
 - Catholic saints as companions
 - "Offer it up" language
@@ -520,7 +558,7 @@ Phase 9: Monetization & Submission
 ### 9.7 Pre-Launch Testing
 - Internal testing track first
 - Test on multiple devices
-- Fix any crashes from Crashlytics/Play Console
+- Fix any crashes from Play Console's Android Vitals (no Crashlytics - keeps "no analytics" promise)
 - Promote to production
 
 **Deliverable:** App live on Play Store
@@ -540,13 +578,13 @@ Phase 3 (Intervention Behavior)
   └── Depends on: Phase 2 complete
 
 Phase 4 (Onboarding)
-  └── Depends on: 2.3 (Overlay permission), 2.1 (Service)
+  └── Depends on: Phase 3 complete (snooze/schedule must work before onboarding sets them)
 
 Phase 5 (Main Screens)
-  └── Depends on: 1.3 (Navigation), 1.5 (Repositories), 3.x (Intervention logging)
+  └── Depends on: Phase 4 complete
 
 Phase 6 (Settings)
-  └── Depends on: Phase 5, 2.2 (Cache refresh)
+  └── Depends on: Phase 5, 2.2 (Cache refresh via dirty flag)
 
 Phase 7 (Notifications & Widget)
   └── Depends on: Phase 6, 1.5 (Repositories)
@@ -623,5 +661,24 @@ Phase 9 (Monetization & Submission)
 
 ---
 
-*Plan version: 1.0*
+## Backlog (Post-v1.0)
+
+Items identified during planning that are not blocking for launch:
+
+### v1.1 Candidates
+- **Data export:** Users may want to export their offerings/stats (CSV or shareable format)
+- **TalkBack accessibility:** Overlay must work with screen readers since we're using AccessibilityService (ironic if our accessibility app isn't accessible)
+- **Font scaling:** Verify overlay remains usable at largest system font sizes
+
+### Technical Debt to Address
+- **App update handling:** Verify database migrations work cleanly, service restarts after MY_PACKAGE_REPLACED
+- **Edge case:** What if user is mid-overlay when app updates? (Probably just dismiss and let them re-trigger)
+
+### Future Consideration
+- **Crashlytics:** Decided against for v1.0 to maintain "no analytics" promise. Revisit if crash debugging becomes painful. If added, update privacy policy.
+
+---
+
+*Plan version: 1.1*
 *Last updated: February 11, 2026*
+*Reviewed by: CTO*

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/overlay_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#1B2340"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:paddingTop="48dp"
+        android:paddingBottom="24dp"
+        android:paddingHorizontal="24dp">
+
+        <!-- Top: Cross symbol -->
+        <TextView
+            android:id="@+id/cross_symbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:text="✦"
+            android:textSize="56sp"
+            android:textColor="#C9A84C"
+            android:alpha="0"
+            tools:alpha="1" />
+
+        <!-- Breath prayer (for attempt 1) -->
+        <TextView
+            android:id="@+id/breath_prayer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:gravity="center"
+            android:text="Be still."
+            android:textSize="32sp"
+            android:textColor="#C9A84C"
+            android:fontFamily="@font/cormorant_garamond_regular"
+            android:visibility="gone"
+            android:alpha="0"
+            tools:visibility="visible"
+            tools:alpha="1" />
+
+        <!-- Middle section: Scripture (hidden for attempt 1) -->
+        <LinearLayout
+            android:id="@+id/scripture_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:alpha="0"
+            tools:visibility="visible"
+            tools:alpha="1">
+
+            <TextView
+                android:id="@+id/scripture_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Create in me a clean heart, O God, and renew a right spirit within me."
+                android:textSize="24sp"
+                android:textColor="#C9A84C"
+                android:fontFamily="@font/cormorant_garamond_regular"
+                android:lineSpacingMultiplier="1.3" />
+
+            <TextView
+                android:id="@+id/scripture_reference"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="— Psalm 51:10"
+                android:textSize="16sp"
+                android:textColor="#C9A84C"
+                android:fontFamily="@font/cormorant_garamond_italic"
+                android:alpha="0.8" />
+
+        </LinearLayout>
+
+        <!-- Sub-prompt (fades in separately) -->
+        <TextView
+            android:id="@+id/sub_prompt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="center"
+            android:text="What are you looking for right now?"
+            android:textSize="16sp"
+            android:textColor="#F5F0E8"
+            android:fontFamily="@font/cormorant_garamond_italic"
+            android:visibility="gone"
+            android:alpha="0"
+            tools:visibility="visible"
+            tools:alpha="1" />
+
+        <!-- Companion quote section (attempt 4+) -->
+        <LinearLayout
+            android:id="@+id/companion_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:alpha="0"
+            tools:visibility="visible"
+            tools:alpha="1">
+
+            <TextView
+                android:id="@+id/companion_quote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="&quot;We are not at peace with others because we are not at peace with ourselves.&quot;"
+                android:textSize="16sp"
+                android:textColor="#F5F0E8"
+                android:fontFamily="@font/cormorant_garamond_italic"
+                android:lineSpacingMultiplier="1.2" />
+
+            <TextView
+                android:id="@+id/companion_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="— Thomas Merton"
+                android:textSize="14sp"
+                android:textColor="#C9A84C"
+                android:fontFamily="@font/cormorant_garamond_regular"
+                android:alpha="0.8" />
+
+        </LinearLayout>
+
+        <!-- Spacer to push buttons to bottom -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <!-- Bottom section: Buttons -->
+        <LinearLayout
+            android:id="@+id/buttons_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_return_to_prayer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="240dp"
+                android:paddingHorizontal="32dp"
+                android:paddingVertical="16dp"
+                android:text="Return to prayer"
+                android:textSize="18sp"
+                android:textColor="#1B2340"
+                android:fontFamily="@font/cormorant_garamond_bold"
+                android:background="@drawable/btn_gold_rounded"
+                android:visibility="invisible"
+                android:textAllCaps="false"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/btn_proceed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="12dp"
+                android:text="Proceed to App"
+                android:textSize="14sp"
+                android:textColor="#666666"
+                android:fontFamily="@font/cormorant_garamond_regular"
+                android:visibility="invisible"
+                tools:visibility="visible" />
+
+        </LinearLayout>
+
+        <!-- Very bottom: Attempt counter with sit time -->
+        <TextView
+            android:id="@+id/attempt_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="Attempt 1 today"
+            android:textSize="12sp"
+            android:textColor="#666666"
+            android:alpha="0.7" />
+
+    </LinearLayout>
+
+</FrameLayout>
